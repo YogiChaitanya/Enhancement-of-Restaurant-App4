@@ -1,5 +1,5 @@
 .header-container {
-  height: 10vh;
+  min-height: 10vh;
   padding: 10px;
 
   display: flex;
@@ -15,7 +15,7 @@
   margin: 0;
 }
 
-.orders-container {
+.orders-container-desktop {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -67,4 +67,40 @@
   .my-order-text {
     display: none;
   }
+}
+
+@media (max-width: 576px) {
+  .orders-container-desktop {
+    display: none;
+  }
+}
+
+.orders-container-mobile {
+  display: flex;
+  flex-direction: row;
+}
+
+@media (min-width: 576px) {
+  .orders-container-mobile {
+    display: none;
+  }
+}
+
+.link-item {
+  text-decoration: none;
+  background-color: transparent;
+
+  display: flex;
+  flex-direction: row;
+
+  border: none;
+  cursor: pointer;
+}
+
+.logout-btn {
+  background-color: transparent;
+
+  border: none;
+  outline: none;
+  cursor: pointer;
 }

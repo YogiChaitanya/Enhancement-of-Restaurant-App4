@@ -1,0 +1,27 @@
+.cart-container {
+  min-height: 90vh;
+}
+
+.remove-all-btn-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.remove-all-btn {
+  cursor: pointer;
+}
+
+.cart-list-container {
+  list-style-type: none;
+
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.empty-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}

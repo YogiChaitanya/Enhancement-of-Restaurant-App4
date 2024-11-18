@@ -1,0 +1,53 @@
+.cart-item {
+  min-width: 80%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  height: 30vh;
+  background-color: pink;
+  border-radius: 20px;
+
+  margin-bottom: 10px;
+}
+
+.dish-image {
+  width: 120px;
+
+  margin-right: 10px;
+}
+
+.plus-quantity-minus-btn-container {
+  padding: 8px;
+  min-width: 100px;
+
+  display: flex;
+  flex-direction: row;
+}
+
+@media (max-width: 576px) {
+  .cart-item {
+    min-width: 95%;
+  }
+}
+
+.total-price-remove-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.remove-btn {
+  background-color: transparent;
+
+  border: none;
+  cursor: pointer;
+  outline: none;
+
+  margin-left: 20%;
+}
+
+.quantity-label {
+  margin-left: 10px;
+  margin-right: 10px;
+}

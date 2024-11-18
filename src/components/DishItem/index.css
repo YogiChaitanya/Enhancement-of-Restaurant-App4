@@ -184,10 +184,12 @@
   .dish-item-container {
     padding: 9px;
   }
-  .dish-image {
-    width: 70px;
-    height: 70px;
 
+  .dish-image {
+    width: 40px;
+    height: 90px;
+
+    border-radius: 10px;
     margin-left: 0;
   }
 
@@ -220,4 +222,24 @@
     min-width: 85px;
     border-radius: 30px;
   }
+
+  .add-to-cart-btn {
+    padding: 2px;
+    font-size: 8px;
+  }
+}
+
+.add-to-cart-btn {
+  padding: 10px;
+  color: white;
+  font-size: 12px;
+  background-color: blueviolet;
+
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+
+  margin-top: 6px;
+  margin-bottom: 6px;
 }

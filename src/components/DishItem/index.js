@@ -1,87 +1,139 @@
+import {Component} from 'react'
+import CartContext from '../../context/CartContext'
 import './index.css'
 
-const DishItem = props => {
-  const {dishDetails, cartList, incrementQuantity, decrementQuantity} = props
-
-  const {
-    dishId,
-    dishName,
-    dishType,
-    dishPrice,
-    dishCurrency,
-    dishDescription,
-    dishImage,
-    dishCalories,
-    addonCat,
-    dishAvailability,
-  } = dishDetails
-
-  const onIncreaseQuantity = () => {
-    incrementQuantity(dishId)
-  }
-  const onDecreaseQuantity = () => {
-    decrementQuantity(dishId)
+class DishItem extends Component {
+  state = {
+    quantity: 0,
   }
 
-  const getQuantity = () => {
-    const cartItemQuantity = cartList.find(item => item.dishId === dishId)
-    return cartItemQuantity ? cartList.quantity : 0
+  onIncreaseQuantity = () => {
+    this.setState(prevState => ({
+      quantity: prevState.quantity + 1,
+    }))
   }
 
-  const renderControllerButton = () => (
-    <div className="controller-container">
-      <button onClick={onDecreaseQuantity} className="p-m-button" type="button">
-        -
-      </button>
+  onDecreaseQuantity = () => {
+    const {quantity} = this.state
 
-      <p className="quantity">{getQuantity()}</p>
-      <button onClick={onIncreaseQuantity} className="p-m-button" type="button">
-        +
-      </button>
-    </div>
+    if (quantity > 1) {
+      this.setState(prevState => ({
+        quantity: prevState.quantity - 1,
+      }))
+    }
+  }
+
+  renderControllerButton = () => {
+    const {quantity} = this.state
+
+    return (
+      <div className="controller-container">
+        <button
+          onClick={this.onDecreaseQuantity}
+          className="p-m-button"
+          type="button"
+        >
+          -
+        </button>
+
+        <p className="quantity">{quantity}</p>
+
+        <button
+          onClick={this.onIncreaseQuantity}
+          className="p-m-button"
+          type="button"
+        >
+          +
+        </button>
+      </div>
+    )
+  }
+
+  renderDishItem = () => (
+    <CartContext.Consumer>
+      {value => {
+        const {addCartItem} = value
+
+        const {dishDetails} = this.props
+
+        const {quantity} = this.state
+
+        const {
+          dishName,
+          dishType,
+          dishPrice,
+          dishCurrency,
+          dishDescription,
+          dishImage,
+          dishCalories,
+          addonCat,
+          dishAvailability,
+        } = dishDetails
+
+        const onClickAddToCartBtn = () => {
+          addCartItem({...dishDetails, quantity})
+        }
+
+        return (
+          <li className="dish-item-container">
+            <div
+              className={`border ${
+                dishType === 1 ? 'non-veg-border' : 'veg-border'
+              } `}
+            >
+              <div
+                className={`round ${
+                  dishType === 1 ? 'non-veg-round' : 'veg-round'
+                } `}
+              />
+            </div>
+
+            <div className="dish-details-container">
+              <h1 className="dish-name">{dishName}</h1>
+
+              <div className="dish-currency-price-container">
+                <p className="dish-currency-price">{dishCurrency}</p>
+                <p className="dish-currency-price">{dishPrice}</p>
+              </div>
+
+              <p className="dish-description">{dishDescription}</p>
+
+              {dishAvailability ? (
+                <div>
+                  {this.renderControllerButton()}
+
+                  <button
+                    onClick={onClickAddToCartBtn}
+                    className="add-to-cart-btn"
+                    type="button"
+                  >
+                    ADD TO CART
+                  </button>
+                </div>
+              ) : (
+                <p className="not-availability-text">Not available</p>
+              )}
+
+              {addonCat.length !== 0 && (
+                <p className="customization-text" key={addonCat}>
+                  Customizations available
+                </p>
+              )}
+            </div>
+
+            <p className="dish-calories"> {dishCalories} calories</p>
+            <div>
+              <img src={dishImage} className="dish-image" alt={dishName} />
+            </div>
+          </li>
+        )
+      }}
+    </CartContext.Consumer>
   )
 
-  return (
-    <li className="dish-item-container">
-      <div
-        className={`border ${
-          dishType === 1 ? 'non-veg-border' : 'veg-border'
-        } `}
-      >
-        <div
-          className={`round ${dishType === 1 ? 'non-veg-round' : 'veg-round'} `}
-        />
-      </div>
-
-      <div className="dish-details-container">
-        <h1 className="dish-name">{dishName}</h1>
-
-        <div className="dish-currency-price-container">
-          <p className="dish-currency-price">{dishCurrency}</p>
-          <p className="dish-currency-price">{dishPrice}</p>
-        </div>
-
-        <p className="dish-description">{dishDescription}</p>
-
-        {dishAvailability ? (
-          renderControllerButton()
-        ) : (
-          <p className="not-availability-text">Not available</p>
-        )}
-
-        {addonCat.length !== 0 && (
-          <p className="customization-text" key={addonCat}>
-            Customizations available
-          </p>
-        )}
-      </div>
-
-      <p className="dish-calories"> {dishCalories} calories</p>
-      <div>
-        <img src={dishImage} className="dish-image" alt={dishName} />
-      </div>
-    </li>
-  )
+  render() {
+    return <>{this.renderDishItem()}</>
+  }
 }
 
 export default DishItem
