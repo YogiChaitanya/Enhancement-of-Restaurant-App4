@@ -9,6 +9,7 @@ class Home extends Component {
     isLoading: true,
     response: [],
     activeCategoryId: '',
+    restaurantName: '',
   }
 
   componentDidMount() {
@@ -43,18 +44,19 @@ class Home extends Component {
     const updatedData = this.getUpdatedData(data[0].table_menu_list)
     // console.log(updatedData)
 
+    const name = data[0].restaurant_name
+
     this.setState({
       response: updatedData,
       activeCategoryId: updatedData[0].menuCategoryId,
       isLoading: false,
+      restaurantName: name,
     })
   }
 
   renderDishes = () => {
     const {response, activeCategoryId} = this.state
-    const {cartList} = this.state
-    console.log(cartList)
-    // Q1 if cartList is empty means how you will add items
+
     const {categoryDishes} = response.find(
       eachCategory => eachCategory.menuCategoryId === activeCategoryId,
     )
@@ -82,31 +84,30 @@ class Home extends Component {
 
   render() {
     const {isLoading, response, activeCategoryId} = this.state
+    const {restaurantName} = this.state
 
     return isLoading ? (
       this.renderSpinner()
     ) : (
-      <div className="home-container">
-        <Header />
+      <>
+        <Header restaurantName={restaurantName} />
+        <div className="home-container">
+          <ul className="tab-container">
+            {response.map(eachCategory => (
+              <TabItem
+                key={eachCategory.menuCategoryId}
+                tabDetails={eachCategory}
+                clickedTab={this.updatedData}
+                isActive={activeCategoryId === eachCategory.menuCategoryId}
+              />
+            ))}
+          </ul>
 
-        <ul className="tab-container">
-          {response.map(eachCategory => (
-            <TabItem
-              key={eachCategory.menuCategoryId}
-              tabDetails={eachCategory}
-              clickedTab={this.updatedData}
-              isActive={activeCategoryId === eachCategory.menuCategoryId}
-            />
-          ))}
-        </ul>
-
-        {this.renderDishes()}
-      </div>
+          {this.renderDishes()}
+        </div>
+      </>
     )
   }
 }
 
 export default Home
-
-// status
-// increment and decrement quantity

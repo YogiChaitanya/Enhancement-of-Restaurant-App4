@@ -16,7 +16,7 @@ class DishItem extends Component {
   onDecreaseQuantity = () => {
     const {quantity} = this.state
 
-    if (quantity > 1) {
+    if (quantity > 0) {
       this.setState(prevState => ({
         quantity: prevState.quantity - 1,
       }))
@@ -29,6 +29,7 @@ class DishItem extends Component {
     return (
       <div className="controller-container">
         <button
+          data-testid="minus-button"
           onClick={this.onDecreaseQuantity}
           className="p-m-button"
           type="button"
@@ -39,6 +40,7 @@ class DishItem extends Component {
         <p className="quantity">{quantity}</p>
 
         <button
+          data-testid="plus-button"
           onClick={this.onIncreaseQuantity}
           className="p-m-button"
           type="button"
@@ -91,10 +93,9 @@ class DishItem extends Component {
             <div className="dish-details-container">
               <h1 className="dish-name">{dishName}</h1>
 
-              <div className="dish-currency-price-container">
-                <p className="dish-currency-price">{dishCurrency}</p>
-                <p className="dish-currency-price">{dishPrice}</p>
-              </div>
+              <p className="dish-currency-price">
+                {dishCurrency} {dishPrice}
+              </p>
 
               <p className="dish-description">{dishDescription}</p>
 
@@ -103,6 +104,7 @@ class DishItem extends Component {
                   {this.renderControllerButton()}
 
                   <button
+                    data-testid="add-to-cart"
                     onClick={onClickAddToCartBtn}
                     className="add-to-cart-btn"
                     type="button"

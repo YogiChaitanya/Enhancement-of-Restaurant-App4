@@ -8,6 +8,8 @@ import CartContext from '../../context/CartContext'
 import './index.css'
 
 const Header = props => {
+  const {restaurantName} = props
+
   const renderCartIcon = () => (
     <CartContext.Consumer>
       {value => {
@@ -31,13 +33,13 @@ const Header = props => {
 
   const onClickCartRoute = () => {
     const {history} = props
-    history.replace('/cart')
+    history.push('/cart')
   }
 
   return (
     <nav className="header-container">
       <Link to="/" className="link-item">
-        <h1 className="logo-heading">UNI Resto Cafe</h1>
+        <h1 className="logo-heading">{restaurantName}</h1>
       </Link>
 
       <div className="orders-container-desktop">

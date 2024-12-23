@@ -32,10 +32,11 @@ const CartItem = props => (
           <img src={dishImage} alt={dishName} className="dish-image" />
 
           <div className="quantity-details-card">
-            <p>{dishPrice}</p>
+            <p>{dishName}</p>
 
             <div className="plus-quantity-minus-btn-container">
               <button
+                data-testid="cart-minus-btn"
                 onClick={onClickMinusBtn}
                 className="p-m-button"
                 type="button"
@@ -44,6 +45,7 @@ const CartItem = props => (
               </button>
               <p className="quantity-label">{quantity}</p>
               <button
+                data-testid="cart-plus-btn"
                 onClick={onClickPlusBtn}
                 className="p-m-button"
                 type="button"
@@ -55,6 +57,7 @@ const CartItem = props => (
             <div className="total-price-remove-container">
               <p className="cart-total-price">${totalPrice}/-</p>
               <button
+                data-testid="remove-btn"
                 onClick={onRemoveCartItem}
                 className="remove-btn"
                 type="button"

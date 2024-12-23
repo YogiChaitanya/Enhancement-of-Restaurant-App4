@@ -1,5 +1,5 @@
 import {Component} from 'react'
-import {Switch, Route} from 'react-router-dom'
+import {BrowserRouter, Switch, Route} from 'react-router-dom'
 
 import Home from './components/Home'
 import Login from './components/Login'
@@ -93,8 +93,6 @@ class App extends Component {
 
   render() {
     const {cartList} = this.state
-    // console.log(`checking1 cartList array quantity is there or not?`)
-    // console.log(cartList)
 
     return (
       <CartContext.Provider
@@ -107,11 +105,13 @@ class App extends Component {
           decrementCartItemQuantity: this.decrementCartItemQuantity,
         }}
       >
-        <Switch>
-          <Route exact path="/login" component={Login} />
-          <ProtectedRoute exact path="/" component={Home} />
-          <ProtectedRoute exact path="/cart" component={Cart} />
-        </Switch>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/login" component={Login} />
+            <ProtectedRoute exact path="/" component={Home} />
+            <ProtectedRoute exact path="/cart" component={Cart} />
+          </Switch>
+        </BrowserRouter>
       </CartContext.Provider>
     )
   }

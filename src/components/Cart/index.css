@@ -10,6 +10,8 @@
 
 .remove-all-btn {
   cursor: pointer;
+
+  margin-bottom: 10px;
 }
 
 .cart-list-container {
