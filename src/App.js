@@ -14,6 +14,24 @@ import './App.css'
 class App extends Component {
   state = {
     cartList: [],
+    restaurantName: '',
+  }
+
+  componentDidMount() {
+    this.fetchRestaurantApi()
+  }
+
+  fetchRestaurantApi = async () => {
+    const api =
+      'https://apis2.ccbp.in/restaurant-app/restaurant-menu-list-details'
+    const apiResponse = await fetch(api)
+    const data = await apiResponse.json()
+
+    const name = data[0].restaurant_name
+
+    this.setState({
+      restaurantName: name,
+    })
   }
 
   // this method adds the cart item to the cartList
@@ -92,7 +110,7 @@ class App extends Component {
   }
 
   render() {
-    const {cartList} = this.state
+    const {cartList, restaurantName} = this.state
 
     return (
       <CartContext.Provider
@@ -103,6 +121,7 @@ class App extends Component {
           removeAllCartItems: this.removeAllCartItems,
           incrementCartItemQuantity: this.incrementCartItemQuantity,
           decrementCartItemQuantity: this.decrementCartItemQuantity,
+          restaurantName,
         }}
       >
         <BrowserRouter>

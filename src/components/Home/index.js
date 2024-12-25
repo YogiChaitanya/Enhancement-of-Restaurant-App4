@@ -1,4 +1,5 @@
 import {Component} from 'react'
+// import CartContext from '../../context/CartContext'
 import Header from '../Header'
 import DishItem from '../DishItem'
 import TabItem from '../TabItem'
@@ -9,7 +10,6 @@ class Home extends Component {
     isLoading: true,
     response: [],
     activeCategoryId: '',
-    restaurantName: '',
   }
 
   componentDidMount() {
@@ -44,14 +44,24 @@ class Home extends Component {
     const updatedData = this.getUpdatedData(data[0].table_menu_list)
     // console.log(updatedData)
 
-    const name = data[0].restaurant_name
+    // const name = data[0].restaurant_name
 
     this.setState({
       response: updatedData,
       activeCategoryId: updatedData[0].menuCategoryId,
       isLoading: false,
-      restaurantName: name,
     })
+
+    // doubt2: how to assign name value to restaurantName
+
+    // this.setState({restaurantName : name})
+    // <CartContext.Conumser>{
+    // value => {
+    // let {restaurantName} = value
+
+    // restaurantName = name
+    // }
+    // }</CartContext.Consumer>
   }
 
   renderDishes = () => {
@@ -90,7 +100,7 @@ class Home extends Component {
       this.renderSpinner()
     ) : (
       <>
-        <Header restaurantName={restaurantName} />
+        <Header name={restaurantName} />
         <div className="home-container">
           <ul className="tab-container">
             {response.map(eachCategory => (

@@ -76,6 +76,8 @@ class DishItem extends Component {
           addCartItem({...dishDetails, quantity})
         }
 
+        const productIsAvailable = quantity > 0
+
         return (
           <li className="dish-item-container">
             <div
@@ -100,26 +102,28 @@ class DishItem extends Component {
               <p className="dish-description">{dishDescription}</p>
 
               {dishAvailability ? (
-                <div>
-                  {this.renderControllerButton()}
-
-                  <button
-                    data-testid="add-to-cart"
-                    onClick={onClickAddToCartBtn}
-                    className="add-to-cart-btn"
-                    type="button"
-                  >
-                    ADD TO CART
-                  </button>
-                </div>
+                <>{this.renderControllerButton()}</>
               ) : (
                 <p className="not-availability-text">Not available</p>
               )}
 
-              {addonCat.length !== 0 && (
-                <p className="customization-text" key={addonCat}>
-                  Customizations available
-                </p>
+              {addonCat.length !== 0 ? (
+                <p className="customization-text">Customizations available</p>
+              ) : (
+                ''
+              )}
+
+              {productIsAvailable ? (
+                <button
+                  data-testid="add-to-cart"
+                  onClick={onClickAddToCartBtn}
+                  className="add-to-cart-btn"
+                  type="button"
+                >
+                  ADD TO CART
+                </button>
+              ) : (
+                ''
               )}
             </div>
 
